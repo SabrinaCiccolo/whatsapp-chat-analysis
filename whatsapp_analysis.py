@@ -795,9 +795,13 @@ print("\n" + "="*80)
 print("SEARCH FOR SPECIFIC PHRASES")
 print("="*80)
 
-search_string = input("\nEnter a word or phrase to search for in messages: ").strip()
-
-if search_string:
+while True:
+    search_string = input("\nEnter a word or phrase to search for (or press Enter to exit): ").strip()
+    
+    if not search_string:
+        print("\nExiting search. Analysis complete!")
+        break
+    
     print(f"\nSearching for: '{search_string}'")
     
     search_mask = df['clean_message'].str.contains(search_string, case=False, na=False)
@@ -832,7 +836,6 @@ if search_string:
             print(f"  {message_preview}")
             print("-" * 80)
     
-    if total_count > 0:
         print(f"\nAdditional statistics:")
         
         first_msg = messages_with_string.sort_values('datetime').iloc[0]
@@ -856,5 +859,7 @@ if search_string:
         total_messages = len(df)
         percentage_of_all = (total_count / total_messages) * 100
         print(f"  Percentage of all messages: {percentage_of_all:.2f}%")
-else:
-    print("\nNo search string entered. Skipping search.")
+    else:
+        print(f"\nNo messages found containing '{search_string}'.")
+    
+    print("\n" + "="*80)
