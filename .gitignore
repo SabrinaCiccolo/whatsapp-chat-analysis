@@ -51,6 +51,7 @@ venv.bak/
 transformers_cache/
 
 # Output files
+outputs/
 *.csv
 *.png
 *.jpg
